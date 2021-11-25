@@ -1,19 +1,12 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  Text,
-  View,
-} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import AppStack from './src/navigation/AppStack';
+import './src/lang/index'
 
 export default function App() {
   return (
-    <SafeAreaView>
-    <ScrollView>
-      <View>
-        <Text>test</Text>
-      </View>
-    </ScrollView>
-  </SafeAreaView>
+    <NavigationContainer>
+      <AppStack />
+    </NavigationContainer>
   );
 }
