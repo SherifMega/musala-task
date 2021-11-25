@@ -1,5 +1,4 @@
 import React from 'react';
-import Container from '../../components/Container/Container';
 import {
     Box,
     Heading,
@@ -10,16 +9,19 @@ import {
     HStack,
     Stack,
 } from "native-base";
-import { PRIMARY_COLOR } from '../../constants/colors';
+import { DARK_COLOR, LIGHT_COLOR, PRIMARY_COLOR } from '../../constants/colors';
+import { IArticlesProps } from '../../interfaces/News';
+import { useColorScheme } from 'react-native';
 
-const CardWithImage = () => {
+const CardWithImage = ({ item }: IArticlesProps) => {
+    const theme = useColorScheme();
     return (
-        <Box borderColor="coolGray.200" borderWidth="1">
+        <Box borderColor="coolGray.100" borderBottomWidth=".4" marginBottom="5">
             <Box>
                 <AspectRatio w="100%" ratio={16 / 9}>
                     <Image
                         source={{
-                            uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg",
+                            uri: item.urlToImage,
                         }}
                         alt="image"
                     />
@@ -36,46 +38,27 @@ const CardWithImage = () => {
                     px="3"
                     py="1.5"
                 >
-                    PHOTOS
+                    {item.source.name}
                 </Center>
             </Box>
             <Stack p="4" space={3}>
                 <Stack space={2}>
                     <Heading size="md" ml="-1">
-                        The Garden City
+                        {item.title}
                     </Heading>
                     <Text
                         fontSize="xs"
-                        _light={{
-                            color: "violet.500",
-                        }}
-                        _dark={{
-                            color: "violet.400",
-                        }}
+                        color={PRIMARY_COLOR}
                         fontWeight="500"
                         ml="-0.5"
                         mt="-1"
                     >
-                        The Silicon Valley of India.
+                        {item.author}
                     </Text>
                 </Stack>
-                <Text fontWeight="400">
-                    Bengaluru (also called Bangalore) is the center of India's high-tech
-                    industry. The city is also known for its parks and nightlife.
+                <Text fontWeight="400" color={theme == "dark" ? LIGHT_COLOR : DARK_COLOR}>
+                    {item.description}
                 </Text>
-                <HStack alignItems="center" space={4} justifyContent="space-between">
-                    <HStack alignItems="center">
-                        <Text
-                            color="coolGray.600"
-                            _dark={{
-                                color: "warmGray.200",
-                            }}
-                            fontWeight="400"
-                        >
-                            6 mins ago
-                        </Text>
-                    </HStack>
-                </HStack>
             </Stack>
         </Box>
     );

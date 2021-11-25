@@ -1,4 +1,5 @@
 import { APIResponse } from "../interfaces/APIS";
+import { ToastAndroid } from "react-native";
 
 const callAPI = (URL: string, method: string, dataBody?: Object) : Promise<any> => {
   return new Promise((resolve, reject) => {
@@ -13,10 +14,12 @@ const callAPI = (URL: string, method: string, dataBody?: Object) : Promise<any> 
         if (response.status === "ok") {
           resolve(response);
         } else {
+          ToastAndroid.show(response.message ?? "error occured!", ToastAndroid.SHORT);
           reject(response);
         }
       })
       .catch(function (error) {
+        ToastAndroid.show(error.message ?? "error occured!", ToastAndroid.SHORT);
         reject(error);
       });
   });
