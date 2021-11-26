@@ -96,7 +96,10 @@ const News = ({ navigation, route }: HomeProps) => {
                 renderItem={renderNewsItem}
                 keyExtractor={(item, index) => index.toString()}
                 refreshing={loading}
-                onRefresh={() => fetchNews()}
+                onRefresh={() => {
+                    resetData();
+                    fetchNews();
+                }}
                 onEndReached={handleLoadMoreNews}
                 onEndReachedThreshold={10}
                 ListEmptyComponent={renderNoResult}
