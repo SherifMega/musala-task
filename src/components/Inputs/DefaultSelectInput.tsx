@@ -4,7 +4,7 @@ import {
     VStack,
     CheckIcon,
 } from "native-base"
-import { LIGHT_COLOR, PRIMARY_COLOR } from '../../constants/colors';
+import { DARK_COLOR, LIGHT_COLOR, PRIMARY_COLOR } from '../../constants/colors';
 import { useColorScheme } from 'react-native';
 
 const DefaultSelectInput = (props: any) => {
@@ -15,6 +15,15 @@ const DefaultSelectInput = (props: any) => {
             <Select
                 selectedValue={props.selectedOption}
                 minWidth="95%"
+                color={theme == "dark" ? LIGHT_COLOR : DARK_COLOR}
+                _actionSheetContent={{
+                    bg: theme == "dark" ? DARK_COLOR : LIGHT_COLOR,
+                }}
+                _item={{
+                    _text: {
+                        color: theme == "dark" ? LIGHT_COLOR : DARK_COLOR,
+                    },
+                }}
                 _selectedItem={{
                     bg: PRIMARY_COLOR,
                     _text: {

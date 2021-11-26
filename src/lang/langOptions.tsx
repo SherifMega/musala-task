@@ -5,8 +5,8 @@ export const getAppLanguages = () => {
             value : 'en'
         },
         {
-            label : 'French',
-            value : 'fr'
+            label : 'Chinese',
+            value : 'zh'
         }
     ]
 };

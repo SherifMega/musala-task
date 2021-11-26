@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useColorScheme } from 'react-native';
+import { useColorScheme, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { DARK_COLOR, LIGHT_COLOR } from '../constants/colors';
 import { RootStackParamList } from '../interfaces/Props';

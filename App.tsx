@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import AppStack from './src/navigation/AppStack';
-import './src/lang/index'
+import { Text } from 'native-base';
+import './src/lang/index';
 
 export default function App() {
   return (

@@ -1,23 +1,44 @@
-import i18n from 'i18next';
-import {initReactI18next} from 'react-i18next';
+import { initReactI18next } from 'react-i18next';
 import enLang from './en.json';
-import frLang from './fr.json';
+import zhLang from './zh.json';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import i18next from "i18next";
 
-i18n.use(initReactI18next).init({
-  compatibilityJSON: 'v3',
-  resources: {
-    en: {
-      translation: enLang,
-    },
-    fr: {
-      translation: frLang,
-    },
+const LOCALE_PERSISTENCE_KEY = "selectedAppLang";
+const languageDetector: any = {
+  type: 'languageDetector',
+  async: true,
+  detect: async (language: any) => {
+    const persistedLocale = await AsyncStorage.getItem(LOCALE_PERSISTENCE_KEY);
+    if (!persistedLocale) {
+      return language("en");
+    }
+    language(persistedLocale);
   },
-  lng: 'en',
-  fallbackLng: 'en',
-  interpolation: {
-    escapeValue: false,
-  },
-});
+  init: () => { },
+  cacheUserLanguage: (locale: any) => {
+    AsyncStorage.setItem(LOCALE_PERSISTENCE_KEY, locale);
+  }
+};
+i18next
+  .use(languageDetector)
+  .use(initReactI18next)
+  .init({
+    compatibilityJSON: 'v3',
+    resources: {
+      en: {
+        translation: enLang,
+      },
+      zh: {
+        translation: zhLang,
+      },
+    },
+    interpolation: {
+      escapeValue: false,
+    },
+    react: {
+      useSuspense: false
+    }
+  });
 
-export default i18n;
+export default i18next;
