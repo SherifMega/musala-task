@@ -8,13 +8,13 @@ import { APIResponse } from "../../interfaces/APIS";
 import { TouchableOpacity, View } from 'react-native';
 import callAPI from '../../helpers/callApi';
 import { API_URL } from '@env';
-import { NativeModules, useColorScheme } from 'react-native';
+import { useColorScheme } from 'react-native';
 import SearchInput from '../../components/Inputs/SearchInput';
 import { useTranslation } from 'react-i18next';
 import { DARK_COLOR, LIGHT_COLOR } from '../../constants/colors';
 
 const News = ({ navigation, route }: HomeProps) => {
-    const { t } = useTranslation();
+    const { t, i18n} = useTranslation();
     const theme = useColorScheme();
     const [newsData, setNewsData] = useState<any>([]);
     const [loading, setLoading] = useState(false);
@@ -30,14 +30,15 @@ const News = ({ navigation, route }: HomeProps) => {
     );
 
     useEffect(() => {
+        resetData();
         fetchNews();
-    }, [])
+    }, [i18n.language])
 
     const fetchNews = async () => {
         try {
             setLoading(true);
             const response: APIResponse = await callAPI(
-                API_URL + "&domains=techcrunch.com&pageSize=10&language=" + NativeModules.I18nManager.localeIdentifier.substring(0, 2) + "&page=" + pageNumber + "&q=" + searchText
+                API_URL + "&domains=techcrunch.com,engadget.com&pageSize=10&language=" + i18n.language + "&page=" + pageNumber + "&q=" + searchText
                 , "GET");
             setTotalResults(response.totalResults);
             setNewsData((prevState: any) =>
