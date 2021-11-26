@@ -1,14 +1,14 @@
 import React from 'react';
-import { Text } from 'native-base';
 import Container from '../../components/Container/Container';
+import { useColorScheme } from 'react-native';
+import CardWithImage from '../../components/Cards/CardWithImage';
 
-const NewsDetails = () => {
+const NewsDetails = ({ route }: any) => {
+    const theme = useColorScheme();
 
     return (
         <Container>
-            <Text>
-                News Details
-            </Text>
+            <CardWithImage item={route.params.item} />
         </Container>
     );
 };

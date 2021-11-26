@@ -16,16 +16,7 @@ export interface IArticleSource {
   name: string;
 }
 
-type IArticleParams = {
-  item: IArticle;
-}
-
-type IArticleDetailsProps = {
-  params : IArticleParams
-};
-
 export type IArticlesProps = {
   item : IArticle
 };
 
-export type ArticleDetailsProps = NativeStackScreenProps<IArticleDetailsProps , 'params'>;
