@@ -14,10 +14,10 @@ import { useTranslation } from 'react-i18next';
 import { DARK_COLOR, LIGHT_COLOR } from '../../constants/colors';
 
 const News = ({ navigation, route }: HomeProps) => {
-    const { t, i18n} = useTranslation();
+    const { t, i18n } = useTranslation();
     const theme = useColorScheme();
     const [newsData, setNewsData] = useState<any>([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [pageNumber, setPageNumber] = useState(1);
     const [searchText, setSearchText] = useState("");
     const [totalResults, setTotalResults] = useState(0);
@@ -30,13 +30,16 @@ const News = ({ navigation, route }: HomeProps) => {
     );
 
     useEffect(() => {
+        if (route.params?.searchText) {
+            setSearchText(route.params.searchText);
+        }
         resetData();
         fetchNews();
     }, [i18n.language])
 
     const fetchNews = async () => {
+        setLoading(true);
         try {
-            setLoading(true);
             const response: APIResponse = await callAPI(
                 API_URL + "&domains=techcrunch.com,engadget.com&pageSize=10&language=" + i18n.language + "&page=" + pageNumber + "&q=" + searchText
                 , "GET");
